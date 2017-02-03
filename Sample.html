@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="utf-8" /> 
+		<title> Sample </title>
+        <style type="text/css">
+        * { padding:0px; margin:0px; }
+        body { padding:10px; }
+        input { width:100px; padding:10px; }
+        #currentdate { padding:10px; background-color:#aaffcc; }
+        #monthbox ul { list-style:none; overflow:hidden; }
+        #monthbox ul li { float:left; padding:5px; margin:1px; width:100px; border:1px solid #999999; }
+        #monthbox ul li:first-child { color:#ff0000; }
+        #monthbox ul li:last-child { color:#0000ff; }   
+        #monthbox ul li.today { font-weight:bold; background-color:#dfdfff; }
+        #monthbox ul li.previousnext { background-color:#ffffcc; }
+        #monthbox ul.weekinfo li { text-align:center; font-weight:bold; background-color:#cccccc; }
+        </style>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="XCalendar.js"></script>
+        <script type="text/javascript">
+        var MonthInfo;
+
+        function DisplayDayInfo() {
+            var mainMon = MonthInfo.MainMonth();
+           
+            $('#currentdate').html(mainMon.DisplayText);
+
+            var dayGroup = $('#monthbox ul.week li').removeAttr('class').empty();
+                
+            $(mainMon.DayInfo).each(
+                function(dayIndex, dayInfo) {
+                    var dayItem = dayGroup.eq(dayIndex).attr(
+                        {
+                            'id' : dayInfo.ID,
+                            'title' : dayInfo.DisplayText
+                        }
+                    );
+
+                    if(dayInfo.IsToday == true) {
+                        dayItem.addClass('today');
+                    }
+
+                    if(dayInfo.IsMainMonth == true) {
+                        dayItem.html(dayInfo.Day);
+                    } else {
+                        dayItem.addClass('previousnext').html((dayInfo.Month + '/' + dayInfo.Day));
+                    }                    
+                }
+            );
+        }
+
+        $(document).ready(
+            function() {
+                MonthInfo = new XCalendar(2017, 7, 2017, 2, 3);
+                DisplayDayInfo();
+            }
+        );    
+        </script>
+	</head>
+	<body>
+        <h1>Sample</h1>
+        <h3>** 페이지 초기 로딩시 2017년 7월, 오늘은 2017년 2월 3일로 보여집니다.</h3>
+        <input type="button" value="이전 달" onclick="MonthInfo.MovePreviousMonth(); DisplayDayInfo();" />
+        <input type="button" value="다음 달" onclick="MonthInfo.MoveNextMonth(); DisplayDayInfo();" />
+        <input type="button" value="오늘" onclick="MonthInfo.MoveTodayMonth(); DisplayDayInfo();" />
+        <div id="currentdate"></div>
+        <div id="monthbox">
+            <ul class="weekinfo">
+                <li>일요일</li>
+                <li>월요일</li>
+                <li>화요일</li>
+                <li>수요일</li>
+                <li>목요일</li>
+                <li>금요일</li>
+                <li>토요일</li>
+            </ul>
+            <!-- 1주차 -->
+            <ul class="week">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <!-- 2주차 -->
+            <ul class="week">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <!-- 3주차 -->
+            <ul class="week">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <!-- 4주차 -->
+            <ul class="week">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <!-- 5주차 -->
+            <ul class="week">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <!-- 6주차 -->
+            <ul class="week">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+	</body>
+</html>
